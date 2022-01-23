@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     init_int();
     init_sum();
     init_multiply();
+    init_transpose();
+    init_determinant();
 
 }
 
@@ -295,4 +297,49 @@ void MainWindow::calculate_multiply(){
             buttons_matrix3.at(i).at(j)->setText(txt);
         }
     }
+}
+
+void MainWindow::init_transpose(){
+    QPushButton* button = new QPushButton(this);
+    button->show();
+    button->setGeometry(210, 40, 140, 20);
+    button->setEnabled(true);
+    button->setText("transpose matrix1");
+    connect(button, &QPushButton::clicked, this, &MainWindow::calculate_transpose);
+    trans = button;
+}
+
+void MainWindow::calculate_transpose(){
+    Matrix transpose = calculator.transpose(matrix1);
+
+    for(int i = 0; i < transpose.get_rows(); i++){
+        for(int j = 0; j< transpose.get_columns();j++){
+            QString txt = QString::number(transpose.get_matrix().at(i).at(j));
+            buttons_matrix1.at(i).at(j)->setText(txt);
+        }
+    }
+    for(int i = 0; i < matrix1.get_rows(); i++){
+        for(int j=0; j < matrix1.get_columns();j++){
+            matrix1.change_value(i,j,transpose.get_matrix().at(i).at(j));
+        }
+    }
+}
+
+void MainWindow::init_determinant(){
+    QPushButton* button = new QPushButton(this);
+    button->show();
+    button->setGeometry(210, 20, 140, 20);
+    button->setEnabled(true);
+    button->setText("determinant matrix1:");
+    connect(button, &QPushButton::clicked, this, &MainWindow::calculate_determinant);
+    determinant = button;
+    QLineEdit* lineEdit = new QLineEdit(this);
+    lineEdit->show();
+    lineEdit->setGeometry(350, 20, 140, 20);
+    det = lineEdit;
+}
+
+void MainWindow::calculate_determinant(){
+    QString deter = QString::number(calculator.determinant(matrix1));
+    det->setText(deter);
 }

@@ -42,3 +42,5 @@ int Matrix::get_rows(){
 int Matrix::get_columns(){
     return columns;
 }
+
+

@@ -43,6 +43,12 @@ public:
     void init_multiply();
     void calculate_multiply();
 
+    void init_transpose();
+    void calculate_transpose();
+
+    void init_determinant();
+    void calculate_determinant();
+
 private:
     Ui::MainWindow *ui;
     std::vector<std::vector<QPushButton*>> buttons_matrix1;
@@ -54,7 +60,10 @@ private:
     QPushButton* init_ints= nullptr;
     QPushButton* sum= nullptr;
     QPushButton* mult = nullptr;
-    std::vector<std::vector<QLineEdit*>> edits;
+    QPushButton* trans = nullptr;
+    QPushButton* determinant = nullptr;
+    std::vector<std::vector<QLineEdit*>> edits; 
+    QLineEdit* det = nullptr;
 
 
     Matrix matrix1;
