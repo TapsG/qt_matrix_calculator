@@ -49,6 +49,9 @@ public:
     void init_determinant();
     void calculate_determinant();
 
+    void init_adjungate();
+    void calculate_adjungate();
+
 private:
     Ui::MainWindow *ui;
     std::vector<std::vector<QPushButton*>> buttons_matrix1;
@@ -62,6 +65,7 @@ private:
     QPushButton* mult = nullptr;
     QPushButton* trans = nullptr;
     QPushButton* determinant = nullptr;
+    QPushButton* adjungate = nullptr;
     std::vector<std::vector<QLineEdit*>> edits; 
     QLineEdit* det = nullptr;
 

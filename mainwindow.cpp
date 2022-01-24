@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     init_multiply();
     init_transpose();
     init_determinant();
+    init_adjungate();
 
 }
 
@@ -342,4 +343,31 @@ void MainWindow::init_determinant(){
 void MainWindow::calculate_determinant(){
     QString deter = QString::number(calculator.determinant(matrix1));
     det->setText(deter);
+}
+
+void MainWindow::init_adjungate(){
+    QPushButton* button = new QPushButton(this);
+    button->show();
+    button->setGeometry(210, 40, 140, 20);
+    button->setEnabled(true);
+    button->setText("adjungate matrix1:");
+    connect(button, &QPushButton::clicked, this, &MainWindow::calculate_adjungate);
+    adjungate = button;
+
+}
+
+void MainWindow::calculate_adjungate(){
+    Matrix adjungate = calculator.adjungate(matrix1);
+
+    for(int i = 0; i < adjungate.get_rows(); i++){
+        for(int j = 0; j< adjungate.get_columns();j++){
+            QString txt = QString::number(adjungate.get_matrix().at(i).at(j));
+            buttons_matrix1.at(i).at(j)->setText(txt);
+        }
+    }
+    for(int i = 0; i < matrix1.get_rows(); i++){
+        for(int j=0; j < matrix1.get_columns();j++){
+            matrix1.change_value(i,j,adjungate.get_matrix().at(i).at(j));
+        }
+    }
 }

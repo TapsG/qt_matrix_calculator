@@ -1,4 +1,5 @@
 #include "calculator.h"
+#include <cmath>
 
 Calculator::Calculator()
 {
@@ -115,4 +116,32 @@ int Calculator::determinant(Matrix matrix){
             return det;
 
         }
+
+}
+
+int Calculator::cofactor(int i, int j, Matrix matrix){
+    Matrix submatrix = minor_matrix(i,j,matrix);
+    int cofactor = pow(-1,i+j);
+    cofactor = cofactor*determinant(submatrix);
+    return cofactor;
+}
+
+Matrix Calculator::adjungate(Matrix matrix){
+    if(matrix.get_rows() == matrix.get_columns()){
+
+        Matrix cofactor_matrix;
+
+        cofactor_matrix.change_matrix(matrix.get_matrix());
+
+        Matrix adj_matrix;
+
+        for(int i = 0; i < matrix.get_rows(); i++){
+            for (int j = 0; j < matrix.get_columns(); j++){
+                cofactor_matrix.change_value(i,j,cofactor(i,j,matrix));
+            }
+        }
+
+        adj_matrix = transpose(cofactor_matrix);
+        return adj_matrix;
+    }
 }
